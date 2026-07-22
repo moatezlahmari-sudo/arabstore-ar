@@ -1,0 +1,3134 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرب ستور - ARAB STORE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,700;1,400&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+		/* Custom Modern Scrollbar */
+		::-webkit-scrollbar {
+			width: 8px;
+			height: 5px;
+		}
+
+		::-webkit-scrollbar-track {
+			background: #f1f3f5;
+			border-radius: 10px;
+		}
+
+		::-webkit-scrollbar-thumb {
+			background: #e53935;
+			border-radius: 0px;
+			transition: background 0.3s ease;
+		}
+
+		::-webkit-scrollbar-thumb:hover {
+			background: #a71d1a;
+		}
+
+		* {
+			scrollbar-width: thin;
+			scrollbar-color: #b0b7c0 #f1f3f5;
+		}
+        :root {
+            --bg-color: #f2f3f5;
+            --text-color: #2c3036;
+            --text-muted: #626871;
+            --nav-bg: #1c2026;
+            --nav-text: #f2f3f5;
+            --accent-color: #e53935;
+            --accent-hover: #c62828;
+            --card-bg: #ffffff;
+            --border-color: #dcdfe4;
+            
+            /* Modern Epic Dark Theme */
+            --epic-bg: #121212;
+            --epic-card-bg: #1e1e1e;
+            --epic-card-hover: #2a2a2a;
+            --epic-accent: #0078f2;
+            --epic-accent-hover: #005bb5;
+            --epic-text: #f5f5f5;
+            --epic-text-muted: #aaaaaa;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Toast Container */
+        #toast-container {
+            position: fixed;
+            top: 45px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .toast {
+            background: #1c2026;
+            color: #ffffff;
+            border-right: 4px solid #e53935;
+            padding: 10px 16px;
+            border-radius: 4px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease-out forwards;
+            font-size: 0.85rem;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Header */
+        header {
+            background-color: var(--nav-bg);
+            color: var(--nav-text);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            height: 30px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            padding: 0 15px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+
+        .logo {
+            font-family: 'Amiri', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-decoration: none;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-symbol {
+            background: linear-gradient(135deg, #e53935, #9c27b0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.6rem;
+        }
+
+        .search-btn {
+            background: transparent;
+            border: none;
+            color: var(--nav-text);
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+
+        .search-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Floating Search Bar */
+        #search-bar-container {
+            display: none;
+            position: absolute;
+            top: 35px;
+            right: 30px;
+            width: 300px;
+            background-color: #252a32;
+            padding: 6px;
+            border-radius: 6px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            border: 1px solid #3a414d;
+            z-index: 1001;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 4px 10px;
+            background: #1c2026;
+            border: 1px solid #3a414d;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 0.8rem;
+            outline: none;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: var(--nav-text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: #ff5252;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #252a32;
+            min-width: 140px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.3);
+            border-radius: 4px;
+            overflow: hidden;
+            z-index: 100;
+        }
+
+        .dropdown-content a {
+            color: #e0e0e0;
+            padding: 6px 12px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.78rem;
+            transition: background 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #323842;
+            color: #ffffff;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-auth {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--nav-text);
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-auth:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .btn-auth-primary {
+            background: var(--accent-color);
+            border: none;
+        }
+
+        .btn-auth-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        /* Main Container */
+        main {
+            max-width: 1300px;
+            margin: 8px auto;
+            padding: 0 15px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .section-title-center {
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 800;
+            color: #2c3036;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            margin-top: 15px;
+            text-transform: uppercase;
+        }
+
+        /* Slider Carousel */
+        .slider-wrapper {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: transparent;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slides-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            position: absolute;
+            width: 50%;
+            height: 85%;
+            border-radius: 6px;
+            background-size: cover;
+            background-position: center;
+            transition: all 0.5s ease-in-out;
+            opacity: 0.25;
+            transform: scale(0.85);
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 3;
+            width: 58%;
+            height: 95%;
+            border: 2px solid rgba(255,255,255,0.2);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        .slide.prev {
+            left: 2%;
+            transform: scale(0.85);
+            opacity: 0.35;
+            z-index: 2;
+        }
+
+        .slide.next {
+            right: 2%;
+            transform: scale(0.85);
+            opacity: 0.35;
+            z-index: 2;
+        }
+
+        .slide-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+            width: 100%;
+            padding: 15px;
+            color: #fff;
+            border-radius: 0 0 6px 6px;
+            display: none;
+        }
+
+        .slide.active .slide-overlay {
+            display: block;
+        }
+
+        .slide-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+
+        .slide-desc {
+            font-size: 0.8rem;
+            color: #ccc;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            font-size: 1.5rem;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .slider-btn:hover {
+            background: var(--accent-color);
+        }
+
+        .slider-btn.prev-btn { right: 10px; }
+        .slider-btn.next-btn { left: 10px; }
+
+        /* Articles Section (Grid forming a square layout) */
+        .articles-section {
+            display: grid;
+            grid-template-columns: 1.8fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .articles-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .article-card-main {
+            position: relative;
+            height: 290px;
+            border-radius: 8px;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            cursor: pointer;
+        }
+
+        .article-card-main .article-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            padding: 15px;
+            width: 100%;
+            color: #fff;
+        }
+
+        .article-side-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            height: 290px;
+        }
+
+        .article-card-small {
+            position: relative;
+            flex: 1;
+            border-radius: 6px;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+            cursor: pointer;
+        }
+
+        .article-card-small .article-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+            padding: 10px;
+            width: 100%;
+            color: #fff;
+        }
+
+        .article-badge {
+            display: inline-block;
+            background: var(--accent-color);
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .article-title {
+            font-size: 1rem;
+            font-weight: 800;
+            line-height: 1.3;
+        }
+
+        .article-card-small .article-title {
+            font-size: 0.85rem;
+        }
+
+        /* Auto Carousel for "Explore Games" Cards */
+        .auto-carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .auto-carousel-track {
+            display: flex;
+            gap: 15px;
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .auto-carousel-item {
+            flex: 0 0 calc((100% - 30px) / 3);
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 900px) {
+            .auto-carousel-item {
+                flex: 0 0 calc((100% - 15px) / 2);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .auto-carousel-item {
+                flex: 0 0 100%;
+            }
+        }
+
+        /* News and Updates Section */
+        .site-news-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .news-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        }
+
+        .news-date {
+            font-size: 0.7rem;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .news-heading {
+            font-size: 0.9rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .news-text {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        /* Product Grid & Card */
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            height: 140px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+        }
+
+        .game-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+        }
+
+        .game-card-img {
+            width: 40%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .game-card-info {
+            width: 60%;
+            padding: 10px 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .game-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-color);
+            line-height: 1.2;
+        }
+
+        .game-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .game-category-badge {
+            display: inline-block;
+            background: #e9ecef;
+            color: #495057;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-top: 4px;
+            align-self: flex-start;
+        }
+
+        .game-price-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+            width: 100%;
+        }
+
+        .discount-tag {
+            background: #9c27b0;
+            color: #fff;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 1px 5px;
+            border-radius: 3px;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 0.75rem;
+        }
+
+        .current-price {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #2b8a3e;
+        }
+
+        .free-price {
+            color: #d9480f;
+            font-weight: 800;
+            font-size: 0.85rem;
+        }
+
+        .btn-download-free {
+            background: #66c0f4;
+            color: #fff;
+            border: none;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-download-free:hover {
+            background: #216a2f;
+        }
+
+        /* Horizontal Category Row View (Game Catalog Interface Update) */
+        .category-row-wrapper {
+            margin-bottom: 25px;
+        }
+
+        .category-row-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 4px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .category-row-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--nav-bg);
+        }
+
+        .category-scroll-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .category-cards-horizontal {
+            display: flex;
+            gap: 15px;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            width: 100%;
+            padding: 5px 0;
+        }
+
+        .category-cards-horizontal .game-card {
+            flex: 0 0 320px;
+        }
+
+        .cat-scroll-btn {
+            background: var(--nav-bg);
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: background 0.2s;
+            position: absolute;
+        }
+
+        .cat-scroll-btn:hover {
+            background: var(--accent-color);
+        }
+
+        .cat-scroll-btn.left { left: -12px; }
+        .cat-scroll-btn.right { right: -12px; }
+
+        /* Modern Product Detail Page */
+        .modern-page {
+            background-color: var(--epic-bg);
+            color: var(--epic-text);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .modern-header-title {
+            font-size: 2rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .modern-media-container {
+            display: grid;
+            grid-template-columns: 2.2fr 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .modern-media-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .modern-main-view {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .modern-screen-main {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
+        }
+
+        .modern-thumbs {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .modern-thumb-img {
+            width: 110px;
+            height: 65px;
+            object-fit: cover;
+            border-radius: 6px;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .modern-thumb-img:hover, .modern-thumb-img.active {
+            opacity: 1;
+            border-color: var(--epic-accent);
+            transform: translateY(-2px);
+        }
+
+        .modern-sidebar {
+            background: var(--epic-card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 15px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .modern-game-cover {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .modern-desc {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--epic-text-muted);
+        }
+
+        .modern-info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .modern-info-row {
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .modern-buy-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-modern-buy {
+            background: var(--epic-accent);
+            color: #ffffff;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 120, 242, 0.3);
+        }
+
+        .btn-modern-buy:hover {
+            background: var(--epic-accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 120, 242, 0.4);
+        }
+
+        .modern-details-section {
+            margin-top: 35px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .modern-details-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .modern-box-content {
+            background: var(--epic-card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .modern-box-title {
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-list {
+            list-style: none;
+            font-size: 0.9rem;
+        }
+
+        .feature-list li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #d1d1d1;
+        }
+
+        .review-card {
+            background: #181818;
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            color: #a0a0a0;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        /* Support Section */
+        .support-section {
+            background: #14181f;
+            border-top: 1px solid #282e38;
+            padding: 25px 20px;
+            margin-top: 40px;
+            color: #fff;
+        }
+
+        .support-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .support-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #e53935;
+        }
+
+        .support-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .support-form input, .support-form textarea {
+            width: 100%;
+            padding: 8px 12px;
+            background: #222730;
+            border: 1px solid #353c4a;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        .support-form textarea {
+            height: 70px;
+            resize: none;
+        }
+
+        .btn-support {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-support:hover {
+            background: var(--accent-hover);
+        }
+
+        /* Forum Page */
+        .forum-header {
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .forum-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .forum-item {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            padding: 12px 16px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .forum-item:hover {
+            background: #f8f9fa;
+        }
+
+        .forum-title {
+            font-weight: 700;
+            color: var(--text-color);
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+
+        .forum-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        footer {
+            background-color: var(--nav-bg);
+            color: #8f98a0;
+            padding: 15px 20px;
+            font-size: 0.78rem;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .btn-back {
+            background: #2b3038;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 16px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+
+        .btn-back:hover {
+            background: #3e4550;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .payment-modal {
+            background: #1c2026;
+            color: #fff;
+            width: 90%;
+            max-width: 420px;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid #3a414d;
+            position: relative;
+        }
+
+        .payment-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #2e3540;
+            padding-bottom: 12px;
+            margin-bottom: 18px;
+        }
+
+        .payment-modal-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .close-modal-btn {
+            background: transparent;
+            border: none;
+            color: #8f98a0;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .close-modal-btn:hover {
+            color: #fff;
+        }
+
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .payment-option-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #252a32;
+            border: 1px solid #3a414d;
+            color: #fff;
+            padding: 12px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .payment-option-btn:hover {
+            background: #323842;
+            border-color: #e53935;
+            transform: translateY(-2px);
+        }
+
+        .spinner-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 0;
+            gap: 15px;
+        }
+
+        .loader-spinner {
+            width: 48px;
+            height: 48px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-bottom-color: var(--accent-color);
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Notification Toast -->
+    <div id="toast-container"></div>
+
+    <!-- Modal for Payment Method -->
+    <div id="payment-modal-overlay" class="modal-overlay">
+        <div class="payment-modal">
+            <div id="modal-content-view">
+                <div class="payment-modal-header">
+                    <span class="payment-modal-title">اختر طريقة الدفع</span>
+                    <button class="close-modal-btn" onclick="closePaymentModal()">✕</button>
+                </div>
+                <div class="payment-options">
+                    <button class="payment-option-btn" onclick="processPayment('بايبال')">
+                        <span>بايبال (PayPal)</span>
+                        <span>💳</span>
+                    </button>
+                    <button class="payment-option-btn" onclick="processPayment('باينانس')">
+                        <span>باينانس (Binance)</span>
+                        <span>⛺</span>
+                    </button>
+                    <button class="payment-option-btn" onclick="processPayment('ريدوت باي')">
+                        <span>ريدوت باي (RedotPay)</span>
+                        <span>🔴</span>
+                    </button>
+                    <button class="payment-option-btn" onclick="processPayment('بريدي موب')">
+                        <span>بريدي موب (BaridiMob)</span>
+                        <span>💤</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="modal-loading-view" class="spinner-container">
+                <span class="loader-spinner"></span>
+                <p style="font-size: 0.9rem; color: #ccc;">جاري معالجة الاتصال ببوابة الدفع...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header>
+        <div class="nav-container">
+            <div class="nav-left">
+                <a class="logo" onclick="showHomeWithSlider()">
+                    <span class="logo-symbol">عـ</span>
+                </a>
+                <button class="search-btn" title="بحث" onclick="toggleSearch()">🔍</button>
+                
+                <div id="search-bar-container">
+                    <input type="text" id="search-input" class="search-input" placeholder="ابحث عن اللعبة..." onkeyup="handleSearch()">
+                </div>
+            </div>
+
+            <nav class="nav-center">
+                <a class="nav-link" onclick="showHomeWithSlider()">الرئيسية</a>
+                
+                <div class="dropdown">
+                    <span class="nav-link" onclick="renderGamesByCategories()">الألعاب ▾</span>
+                    <div class="dropdown-content">
+                        <a onclick="renderGamesByCategories()">جميع الألعاب والفئات</a>
+                    </div>
+                </div>
+
+                <a class="nav-link" onclick="showPage('forum')">المنتدى</a>
+            </nav>
+
+            <div class="nav-right">
+                <button class="btn-auth btn-auth-primary" onclick="showToast('الدخول للحساب غير متاح حاليا')">حسابي</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dynamic Content Container -->
+    <main id="main-content">
+        <!-- Content injects here via JS -->
+    </main>
+
+    <!-- Support Form Wrapper -->
+    <div id="support-container-wrapper"></div>
+
+    <footer>
+        <p>عرب ستور - منصة الالعاب العربية المتكاملة | كل الحقوق محفوظة ©</p>
+    </footer>
+
+    <script>
+        // Game Catalog Data
+        const gamesData = [
+            {
+                id: 'apex',
+                title: 'أبيكس ليرجندز (Apex Legends)',
+                developer: 'Respawn Entertainment',
+                category: 'باتل رويال',
+                price: 0,
+                discount: 0,
+                rating: '4.8',
+                popular: true,
+                trending: true,
+                newGame: false,
+                cover: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80',
+                trailer: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=80',
+                screenshots: [
+                    'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80'
+                ],
+                desc: 'لعبة باتل رويال مجانية تنافسية حائزة على جوائز، حيث يتقاتل أبطال ذوي قدرات خارقة للوصول إلى المجد والثرة في أطراف المجرة.',
+                story: 'في مجرة أوت لاندز المترامية الأطراف، يتجمع المتنافسون من كل حدب وصوب للقتال في ألعاب أبيكس، وهي منافسة دمية حيث تبحث الشخصيات الفريدة عن المجد والألقاب.',
+                features: ['نمط لعب جماعي تكتيكي سريح', 'شخصيات وأبطال بتمريرات واختلافات فريدة', 'مواسم متجددة وخارطة أسلحة متطورة', 'دعم كامل للعب المشترك بين المنصات'],
+                reviews: [
+                    {user: 'خالد_الغامدي', text: 'أفضل لعبة باتل رويال من ناحية الحركة والتصويب!', score: '9.5/10'},
+                    {user: 'GamerX_99', text: 'التحديثات الأخيرة ممتازة والتوازن رائع بين الشخصيات.', score: '9/10'}
+                ]
+            },
+            {
+                id: 'fortnite',
+                title: 'فورتنايت (Fortnite)',
+                developer: 'Epic Games',
+                category: 'باتل رويال',
+                price: 0,
+                discount: 0,
+                rating: '4.7',
+                popular: true,
+                trending: true,
+                newGame: false,
+                cover: 'https://images.unsplash.com/photo-1589241062272-c0a000072dfa?auto=format&fit=crop&w=800&q=80',
+                trailer: 'https://images.unsplash.com/photo-1589241062272-c0a000072dfa?auto=format&fit=crop&w=1200&q=80',
+                screenshots: [
+                    'https://images.unsplash.com/photo-1589241062272-c0a000072dfa?auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80'
+                ],
+                desc: 'اقفز إلى عالم فورتنايت الشاسع، وابنِ حصونك ونافس لتبقي الناجي الأخير في تجربة متجددة باستمرار.',
+                story: 'العالم ينكمش باستمرار بسبب العاصفة. 100 لاعب ينزلون على جزيرة مجهولة، والبقاء للأفضل والأكثر حيلة وسرعة في البناء والمعارك.',
+                features: ['نظام بناء ديناميكي فريد', 'فعاليات حية وحفلات موسيقية عالمية', 'أنماط لعب متعددة (Creative & Zero Build)', 'تحديثات أسبوعية بالأسلحة'],
+                reviews: [
+                    {user: 'سعد_سعود', text: 'طور البناء بدون بناء أحيى اللعبة من جديد بالنسبة لي!', score: '8.8/10'}
+                ]
+            },
+            {
+                id: 'mecha',
+                title: 'ميكا كامليون (Mecha Chameleon)',
+                developer: 'CyberByte Studios',
+                category: 'أكشن',
+                price: 29.99,
+                discount: 20,
+                rating: '4.5',
+                popular: true,
+                trending: true,
+                newGame: true,
+                cover: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=800&q=80',
+                trailer: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=1200&q=80',
+                screenshots: [
+                    'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80'
+                ],
+                desc: 'لعبة أكشن مستقبلية تتحكم فيها بآلي متطور قادر على التخفي وتغيير قدراته حسب البيئة المحيطة.',
+                story: 'في عام 2154، تستخدم آلياً بروتوتايب ذكياً للتسلل خلف خطوط الشركات المستبدة وكشف المؤامرات الشيطانية.',
+                features: ['رسوميات مذهلة بمحرك Unreal Engine 5', 'قدرة على التمويه والتخفي بأساليب متعددة', 'تطوير كامل للآلي والأسلحة'],
+                reviews: [
+                    {user: 'فهد_العتيبي', text: 'الجرافيكس والجيم بلاي قمة في الروعة!', score: '9/10'}
+                ]
+            },
+            {
+                id: 'split',
+                title: 'سبليت فكشن (Split Fiction)',
+                developer: 'Paradox Mind',
+                category: 'مغامرات',
+                price: 39.99,
+                discount: 15,
+                rating: '4.9',
+                popular: true,
+                trending: true,
+                newGame: true,
+                cover: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
+                trailer: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80',
+                screenshots: [
+                    'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80'
+                ],
+                desc: 'تجربة قصصية مذهلة تعتمد على الانقسام الزمني والتنقل بين العوالم الموازية لحل الألغاز المعقدة.',
+                story: 'بعد خروج تجربة فيزيائية عن السيطرة، يجد البطل نفسه يعيش في زمنين مختلفين بنفس اللحظة، ويتوجب عليه الموازنة بينهما للتغلب على العقبات.',
+                features: ['ألغاز مبتكرة تعتمد على الزمن', 'قصة سينمائية عميقة للغاية', 'موسيقى تصويرية ساحرة'],
+                reviews: [
+                    {user: 'عمر_شريف', text: 'قصة تحفة فنية، من أفضل ألعاب السنة!', score: '10/10'}
+                ]
+            },
+            {
+                id: 'cyberpunk',
+                title: 'سلاسل السايبر (Cyber Legends)',
+                developer: 'Neon City Labs',
+                category: 'خيال علمي',
+                price: 49.99,
+                discount: 50,
+                rating: '4.6',
+                popular: true,
+                trending: false,
+                newGame: false,
+                cover: 'https://plus.unsplash.com/premium_photo-1677870728119-52aef052d7ef?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Z2FtZXN8ZW58MHx8MHx8fDA%3D',
+                trailer: 'https://plus.unsplash.com/premium_photo-1677870728119-52aef052d7ef?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Z2FtZXN8ZW58MHx8MHx8fDA%3D',
+                screenshots: ['https://plus.unsplash.com/premium_photo-1677870728119-52aef052d7ef?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Z2FtZXN8ZW58MHx8MHx8fDA%3D'],
+                desc: 'عالم مفتوح مظلم مليء بالتكنولوجيا والسيبرنيتكس في مدينة مستقبلية تجري فيها أعتى المعارك.',
+                story: 'اكتشف مدينة النيون المليئة بالإجرام، حيث الأطراف السيبرانية هي خيارك الوحيد للبقاء على قيد الحياة.',
+                features: ['عالم مفتوح ضخم ومفصل', 'تخصيص كامل للشخصية والأطراف التعويضية', 'مهام جانبية متنوعة'],
+                reviews: [{user: 'ياسر_المصري', text: 'بعد التحديثات أصبحت اللعبة خارقة!', score: '8.5/10'}]
+            },
+            {
+                id: 'shadow_ninja',
+                title: 'ظلال النينجا (Shadow Ninja)',
+                developer: 'Shinobi Arts',
+                category: 'أكشن',
+                price: 19.99,
+                discount: 10,
+                rating: '4.4',
+                popular: false,
+                trending: true,
+                newGame: true,
+                cover: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=800&q=80',
+                trailer: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=1200&q=80',
+                screenshots: ['https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=800&q=80'],
+                desc: 'لعبة تسلل وسرعة في اليابان القديمة، حيث تعتمد على السيف والظلال لإسقاط الأعداء.',
+                story: 'بعد تدنيس عشيرتك، تنطلق في رحلة انتقام مظلمة عبر القلاع المجهزة بالحراس والكمائن.',
+                features: ['قتال بالسيوف سريع ودقيق', 'مهارات تسلل وتحرك على الأسقف', 'مراحل متعددة مع زعماء أشداء'],
+                reviews: [{user: 'سامر_الكينج', text: 'أسلوب القتال سلس جداً والموسيقى رائعة!', score: '9/10'}]
+            },
+            {
+                id: 'space_odyssey_26',
+                title: 'رحلة المجرة (Space Odyssey)',
+                developer: 'Astro Interactive',
+                category: 'استراتيجية',
+                price: 34.99,
+                discount: 0,
+                rating: '4.3',
+                popular: false,
+                trending: false,
+                newGame: true,
+                cover: 'https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=800&q=80',
+                trailer: 'https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&q=80',
+                screenshots: ['https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=800&q=80'],
+                desc: 'ابنِ إمبراطوريتك الفضائية واستكشف كواكب مجهولة في لعبة إدارة وتوسع استراتيجي عميقة.',
+                story: 'استعمر المجرة قبل السلالات الفضائية الأخرى، وادر الموارد واستخرج الطاقة من النجوم.',
+                features: ['خارطة مجرية مفتوحة وبناء قاعدة فضائية', 'تخصيص كامل للمركبات', 'دعم اللعب الجماعي التحالفي'],
+                reviews: [{user: 'ماجد_العتيبي', text: 'محبي ألعاب الاستراتيجية سيعشقون هذه اللعبة.', score: '8.5/10'}]
+            },
+            {
+                id: 'speed_racer',
+                title: 'سباق السرعة القصوى (Nitro Speed)',
+                developer: 'Velocity Games',
+                category: 'سباقات',
+                price: 14.99,
+                discount: 25,
+                rating: '4.2',
+                popular: false,
+                trending: true,
+                newGame: false,
+                cover: 'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=800&q=80',
+                trailer: 'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1200&q=80',
+                screenshots: ['https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=800&q=80'],
+                desc: 'تحدَّ أسرع السائقين حول العالم في حلبات سباق واقعية وطرقات مدينة مفتوحة.',
+                story: 'ابدأ من الصفر كمتسابق شوارع مجهول وشق طريقك نحو نهائيات الكأس العالمي للمحترفين.',
+                features: ['أكثر من 50 سيارة مرخصة', 'تعديل المحركات والشكل الخارجي', 'طقس ديناميكي مؤثر على القيادة'],
+                reviews: [{user: 'Speed_Demon', text: 'الفيزيائية ممتازة وسرعة اللعبة حماسية.', score: '8/10'}]
+            },
+            {
+                id: 'dragon_realm',
+                title: 'عالم التنانين (Dragon Realm)',
+                developer: 'Mythic Studios',
+                category: 'مغامرات',
+                price: 44.99,
+                discount: 10,
+                rating: '4.8',
+                popular: true,
+                trending: true,
+                newGame: false,
+                cover: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80',
+                trailer: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1200&q=80',
+                screenshots: ['https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80'],
+                desc: 'عالم مفتوح خيالي ساحر مليء بالسحر، المخلوقات الأسطورية، والمعارك الحماسية.',
+                story: 'استيقظ التنين القديم من مرقده وهدد المملكة؛ يتوجب عليك كسب ثقة القبائل واستخدام السحر لإنقاذ الأرض.',
+                features: ['عالم مفتوح بدون شاشات تحميل', 'نظام سحر وقتال متنوع', 'تربية وترويض المخلوقات للركوب'],
+                reviews: [{user: 'الأسطورة_علي', text: 'من أفضل ألعاب العالم المفتوح القتالية.', score: '9.8/10'}]
+            },
+            {
+                id: 'pixel_builder',
+                title: 'عالم البكسل (Pixel Builder)',
+                developer: 'Indie Spark',
+                category: 'محاكاة',
+                price: 9.99,
+                discount: 0,
+                rating: '4.9',
+                popular: true,
+                trending: false,
+                newGame: false,
+                cover: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80',
+                trailer: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80',
+                screenshots: ['https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80'],
+                desc: 'عالم إبداعي يتيح لك بناء كل ما تتخيله باستخدام المكعبات والفيزياء التفاعلية.',
+                story: 'لا توجد قيود، فقط إبداعك! استكشف كهوف غير متناهية وابنِ مدينتك الخاصة وحدك أو مع أصدقائك.',
+                features: ['عالم ممتد بلا حدود', 'أطوار متعددة (بناء حر / بقاء على قيد الحياة)', 'دعم المودات المخصصة'],
+                reviews: [{user: 'المبدع_حمزة', text: 'لعبة مسلية جداً وتناسب جميع الأعمار.', score: '10/10'}]
+            },
+            {
+                id: 'zombie_survival',
+                title: 'بقاء الموتى (Last Survivor)',
+                developer: 'Deadly Ground',
+                category: 'أكشن',
+                price: 24.99,
+                discount: 30,
+                rating: '4.1',
+                popular: false,
+                trending: false,
+                newGame: true,
+                cover: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80',
+                trailer: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1200&q=80',
+                screenshots: ['https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80'],
+                desc: 'واجه قطعان الزومبي وابنِ ملجأك الخاص في عالم ما بعد الكارثة البيولوجية.',
+                story: 'انتشر الفيروس وتدمرت الحضارة. ابحث عن الطعام والذخيرة وتكاتف مع الناجين الآخرين للبقاء.',
+                features: ['نظام جوع وعطش وإصابات واقعي', 'بناء وتحصين الملاجئ', 'قتال جماعي ضد الزومبي واللاعبين'],
+                reviews: [{user: 'طارق_الوحش', text: 'الأجواء مرعبة والقتال حماسي!', score: '8.2/10'}]
+            },
+            {
+                id: 'cyber_hacker',
+                title: 'مخترق المستقبل (Cyber Hacker)',
+                developer: 'NetCode Games',
+                category: 'خيال علمي',
+                price: 18.99,
+                discount: 15,
+                rating: '4.3',
+                popular: false,
+                trending: true,
+                newGame: true,
+                cover: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80',
+                trailer: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80',
+                screenshots: ['https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80'],
+                desc: 'لعبة ألغاز وتسلل تقني تتحدى قدرتك على اختراق شبكات الأنظمة والذكاء الاصطناعي.',
+                story: 'تسلل رقمياً إلى الخوادم المحصنة للشركات الكبرى وسرّب البيانات السرية دون أن يتم كشفك.',
+                features: ['ألغاز برمجة وااختراق تكتيكية', 'أدوات وسيبرنيتكس متطورة', 'قصة ذات نهايات متعددة'],
+                reviews: [{user: 'CodeMaster', text: 'فكرة اللعبة جديدة وممتعة لعشاق التكنولوجيا.', score: '8.7/10'}]
+            },
+            {
+                id: 'deep_ocean',
+                title: 'أعماق المحيط (Sub Abyss)',
+                developer: 'Deep Blue Interactive',
+                category: 'مغامرات',
+                price: 22.50,
+                discount: 0,
+                rating: '4.7',
+                popular: false,
+                trending: false,
+                newGame: false,
+                cover: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80',
+                trailer: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80',
+                screenshots: ['https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80'],
+                desc: 'استكشف غياهب المحيط المظلم على كوكب غريب وابنِ غواصتك الخاصة.',
+                story: 'تحطمت مركبتك على كوكب مغطى بالكامل بالمياه، يتوجب عليك النزول إلى الأعماق السحيقة للبحث عن الموارد.',
+                features: ['عالم مائي غني بالمخلوقات والمخاطر', 'إدارة الأكسجين والضغط', 'صناعة الغواصات والغرف المائية'],
+                reviews: [{user: 'عواصم_المالكي', text: 'تجربة استكشاف خرافية ولكنها مخيفة أحياناً!', score: '9.2/10'}]
+            },
+            {
+                id: 'galactic_warfare',
+                title: 'حرب المجرات (Galactic Warfare)',
+                developer: 'Starlight Studios',
+                category: 'باتل رويال',
+                price: 0,
+                discount: 0,
+                rating: '4.6',
+                popular: true,
+                trending: true,
+                newGame: true,
+                cover: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80',
+                trailer: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=1200&q=80',
+                screenshots: ['https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80'],
+                desc: 'معارك فضائية ضخمة تجمع 120 لاعباً في محطة فضائية تدور في الفراغ.',
+                story: 'تنافس مع الفرق الأخرى لاستغلال آخر الموارد المتبقية في المحطة الفضائية المتهالكة قبل انفجارها.',
+                features: ['قتال في بيئة انعدام الجاذبية', 'أسلحة دروع وطاقة مستقبلية', 'أنماط لعب سريعة للفرق'],
+                reviews: [{user: 'سلطان_الغامدي', text: 'قتال انعدام الجاذبية يضيف متعة غير طبيعية.', score: '9/10'}]
+            },
+            {
+                id: 'kingdom_defense',
+                title: 'حماية المملكة (Kingdom Defense)',
+                developer: 'Tower Soft',
+                category: 'استراتيجية',
+                price: 11.99,
+                discount: 40,
+                rating: '4.0',
+                popular: false,
+                trending: false,
+                newGame: false,
+                cover: 'https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?auto=format&fit=crop&w=800&q=80',
+                trailer: 'https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?auto=format&fit=crop&w=1200&q=80',
+                screenshots: ['https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?auto=format&fit=crop&w=800&q=80'],
+                desc: 'ابنِ الأبراج وجهّز الجيوش للتصدي لهجمات الوحوش المتتالية على أسوار قلعتك.',
+                story: 'تزحف جيوش الظلام نحو القلعة الأخيرة، واستراتيجيتك في توزيع الأبراج والأبطال هي حائط الصد الوحيد.',
+                features: ['عشرات الأبراج القابلة للتطوير', 'أبطال بذخائر ومهارات خاصة', 'مراحل ذات صعوبة متدرجة'],
+                reviews: [{user: 'أحمد_عادل', text: 'لعبة مسلية جداً وتقضي على الملل.', score: '8/10'}]
+            },
+            {
+                id: 'retro_arcade',
+                title: 'صالة الأركيد (Retro Arcade)',
+                developer: '8Bit Nostalgia',
+                category: 'محاكاة',
+                price: 5.99,
+                discount: 0,
+                rating: '4.5',
+                popular: false,
+                trending: false,
+                newGame: false,
+                cover: 'https://images.unsplash.com/photo-1551103782-8ab07afd45c1?auto=format&fit=crop&w=800&q=80',
+                trailer: 'https://images.unsplash.com/photo-1551103782-8ab07afd45c1?auto=format&fit=crop&w=1200&q=80',
+                screenshots: ['https://images.unsplash.com/photo-1551103782-8ab07afd45c1?auto=format&fit=crop&w=800&q=80'],
+                desc: 'مجموعة ألعاب كلاسيكية تعود بك إلى زمن التسعينات وأجهزة الأركيد الذهبية.',
+                story: 'ادخل صالة الأركيد الافتراضية والعب بأجهزة الألعاب القديمة وحقق أعلى النقاط في قائمة المتصدرين.',
+                features: ['أكثر من 20 لعبة أركيد كلاسيكية', 'قائمة متصدرين عالمية', 'دعم الأذرع المزدوجة'],
+                reviews: [{user: 'Gamer_80s', text: 'أعادت لي ذكريات الطفولة الجصيلة!', score: '9.3/10'}]
+            },
+            {
+                id: 'samurai_legend',
+                title: 'أسطورة الساموراي (Samurai Honor)',
+                developer: 'Katana Works',
+                category: 'أكشن',
+                price: 39.99,
+                discount: 20,
+                rating: '4.8',
+                popular: true,
+                trending: false,
+                newGame: false,
+                cover: 'https://plus.unsplash.com/premium_photo-1677870728119-52aef052d7ef?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Z2FtZXN8ZW58MHx8MHx8fDA%3D',
+                trailer: 'https://plus.unsplash.com/premium_photo-1677870728119-52aef052d7ef?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Z2FtZXN8ZW58MHx8MHx8fDA%3D',
+                screenshots: ['https://plus.unsplash.com/premium_photo-1677870728119-52aef052d7ef?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Z2FtZXN8ZW58MHx8MHx8fDA%3D'],
+                desc: 'ملحمة تاريخية تجسد حياة الساموراي وقوانين الشرف في مبارزات بالسيوف شديدة الواقعية.',
+                story: 'دافع عن أرضك ضد الغزاة وابقَ وفياً لعهد الشرف بمهارات سيفك الفريدة في الإتقان.',
+                features: ['نظام صد وضربات مبارزة واقعي', 'مناظر طبيعية خلابة بأسلوب فني ياباني', 'قصة درامية موثرة'],
+                reviews: [{user: 'مصطفى_كمال', text: 'قتال السيوف فيها هو الأفضل بدون منازع.', score: '9.6/10'}]
+            },
+            {
+                id: 'mech_arena',
+                title: 'حلبة الآليين (Mech Arena)',
+                developer: 'Iron Steel Games',
+                category: 'أكشن',
+                price: 0,
+                discount: 0,
+                rating: '4.4',
+                popular: false,
+                trending: true,
+                newGame: true,
+                cover: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=800&q=80',
+                trailer: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=1200&q=80',
+                screenshots: ['https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=800&q=80'],
+                desc: 'قتال آليين متعدد اللاعبين في ساحات معارك مغلقة تعتمد على السرعة والتصويب.',
+                story: 'اختر الآلي الخاص بك، ركّب الصواريخ والرشاشات الثقيلة، ودمر آليي الفرق المنافسة في الحلبة.',
+                features: ['تخصيص كامل لأسلحة ومظهر الآلي', 'أنماط 5 ضد 5 وسريعة', 'خرائط تفاعلية متعددة'],
+                reviews: [{user: 'فهد_الأحمد', text: 'سريعة وممتعة جداً مع الأصدقاء.', score: '8.8/10'}]
+            },
+            {
+                id: 'mountain_climber',
+                title: 'تسلق القمم (Peak Climber)',
+                developer: 'Extreme Heights',
+                category: 'مغامرات',
+                price: 12.99,
+                discount: 0,
+                rating: '4.2',
+                popular: false,
+                trending: false,
+                newGame: false,
+                cover: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80',
+                trailer: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80',
+                screenshots: ['https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80'],
+                desc: 'تجربة تسلق جبال واقعية تحت ظروف جوية قاسية وتحكم فيزيائي بدقيق.',
+                story: 'تحدَّ أعلى قمم العالم، وواجه الانهيارات الثلجية ونقص الأكسجين لتصل إلى الراية في القمة.',
+                features: ['فيزياء حبل وتورد حقيقية', 'عوامل جوية وتغير طقس مباشر', 'مناظر طبيعية واقعية'],
+                reviews: [{user: 'Hassan_Travels', text: 'اللعبة تجعلك تحبس أنفاسك أثناء التسلق!', score: '8.4/10'}]
+            },
+            {
+                id: 'alien_isolation_2',
+                title: 'عزل الفضاء (Alien Hazard)',
+                developer: 'Horror Scope',
+                category: 'خيال علمي',
+                price: 27.99,
+                discount: 15,
+                rating: '4.6',
+                popular: false,
+                trending: false,
+                newGame: true,
+                cover: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
+                trailer: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80',
+                screenshots: ['https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80'],
+                desc: 'لعبة رعب وبقاء في الفضاء، حيث يطاردك مخلوق فضائي ذكي يستجيب لأصواتك.',
+                story: 'تصل سفينة أبحاث مهجورة لتكتشف أن طاقمها تم القضاء عليه بواسطة كائن ذكي يتربص بك في الظلام.',
+                features: ['ذكاء اصطناعي متطور للمخلوق', 'نظام اختباء وتسلل دقيق', 'صوتيات ثلاثية الأبعاد مرعبة'],
+                reviews: [{user: 'رعب_Gamer', text: 'واحدة من أرعب الألعاب التي لعبتها على الإطلاق!', score: '9.1/10'}]
+            },
+            {
+                id: 'medieval_war',
+                title: 'حرب الفرسان (Chivalry Lords)',
+                developer: 'Ironclad Games',
+                category: 'أكشن',
+                price: 29.99,
+                discount: 50,
+                rating: '4.3',
+                popular: false,
+                trending: false,
+                newGame: false,
+                cover: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=800&q=80',
+                trailer: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=1200&q=80',
+                screenshots: ['https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=800&q=80'],
+                desc: 'معارك قرون وسطى ضخمة تجمع الفرسان والمنجنيقات وحصار القلاع في طور جماعي.',
+                story: 'شارك في اقتحام الحصون والدفاع عن الملوك باستخدام الدروع والسيوف ورماح القتال.',
+                features: ['معارك تدمير قلاع تصل إلى 64 لاعباً', 'أسلحة دروع وسيوف متعددة', 'قتال واقعي وقاسي'],
+                reviews: [{user: 'خالد_الجهني', text: 'شحن القلاع بالمنجنيق حماسي جداً!', score: '8.6/10'}]
+            },
+            {
+                id: 'cyber_rally',
+                title: 'رالي النيون (Neon Rally)',
+                developer: 'Future Drift',
+                category: 'سباقات',
+                price: 16.99,
+                discount: 0,
+                rating: '4.1',
+                popular: false,
+                trending: false,
+                newGame: true,
+                cover: 'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=800&q=80',
+                trailer: 'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1200&q=80',
+                screenshots: ['https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=800&q=80'],
+                desc: 'سباقات تفحيط مستقبلية بين شوارع نيون ملونة وموسيقى سينث ويف حماسية.',
+                story: 'نافس في بطولة الشوارع الليلية لتكون ملك الانجراف (Drift) في المدينة المستقبلية.',
+                features: ['طرقات ومضامير بنمط النيون', 'موسيقى Synthwave ممتازة', 'أسلوب تفحيط وسلس'],
+                reviews: [{user: 'Drift_King', text: 'الموسيقى مع أضواء النيون تجربة ممتعة للغاية.', score: '8.1/10'}]
+            },
+            {
+                id: 'magic_academy',
+                title: 'أكاديمية السحر (Spell Academy)',
+                developer: 'Wizardry Interactive',
+                category: 'مغامرات',
+                price: 32.99,
+                discount: 10,
+                rating: '4.7',
+                popular: true,
+                trending: true,
+                newGame: true,
+                cover: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80',
+                trailer: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1200&q=80',
+                screenshots: ['https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80'],
+                desc: 'تعلم التعاويذ السحرية، اطبخ الجرع، واكتشف أسرار مدرسة السحرة القديمة.',
+                story: 'انضم كطالب جديد في الأكاديمية السحرية وواجه الأخطار المخفية تحت القلعة أثناء دراستك.',
+                features: ['تركيب وتخصيص التعاويذ الخاصة بك', 'استكشاف الألغاز والغرف السرية', 'مواجهة المخلوقات السحرية'],
+                reviews: [{user: 'سارة_محمد', text: 'عالم ساحر والقصة مشوقة من البداية.', score: '9.4/10'}]
+            },
+            {
+                id: 'farm_simulator',
+                title: 'المزرعة السعيدة (Green Farm)',
+                developer: 'Cozy Harvest',
+                category: 'محاكاة',
+                price: 14.99,
+                discount: 20,
+                rating: '4.8',
+                popular: false,
+                trending: false,
+                newGame: false,
+                cover: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80',
+                trailer: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80',
+                screenshots: ['https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80'],
+                desc: 'لعبة هادئة ومريحة لبناء مزرعتك وتربية الحيوانات وبيع المحاصيل للقرية.',
+                story: 'ورثت مزرعة جدك القديمة، واصلحها ووسّع أرضك لتبني مجتمعاً ريفياً مزدهراً.',
+                features: ['زراعة موسمية وتجارة محاصيل', 'صيد أسماك وتربية حيوانات', 'أجواء مريحة وموسيقى هادئة'],
+                reviews: [{user: 'نورة_علي', text: 'أفضل لعبة للاسترخاء بعد يوم عمل طويل.', score: '9.7/10'}]
+            },
+            {
+                id: 'shadow_realm_rogue',
+                title: 'عالم الظلال (Shadow Realm)',
+                developer: 'Dark Rogue Games',
+                category: 'مغامرات',
+                price: 19.99,
+                discount: 0,
+                rating: '4.5',
+                popular: false,
+                trending: true,
+                newGame: true,
+                cover: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
+                trailer: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80',
+                screenshots: ['https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80'],
+                desc: 'لعبة أدفنتشر وعناصر روغلايك (Roguelike)، حيث تتغير الخرائط والأعداء في كل مرة تموت فيها.',
+                story: 'انزل إلى طبقات السجن المظلم وابقَ حياً لأطول فترة ممكنة لتفك اللعنة التي تحاصرك.',
+                features: ['توليد عشوائي للمراحل والأعداء', 'مئات الأسلحة والقدرات القابلة للدمج', 'صعوبة عالية وتحدٍ متجدد'],
+                reviews: [{user: 'Gamer_Pro_99', text: 'الإدمان الحقيقي! كل محاولة تعطي شعوراً جديداً.', score: '9/10'}]
+            }
+        ];
+
+        let showSliderSection = true;
+        let currentSlideIndex = 0;
+        let sliderInterval = null;
+        let autoCardsInterval = null;
+        let autoCardsIndex = 0;
+
+        function openPaymentModal() {
+            const overlay = document.getElementById('payment-modal-overlay');
+            const contentView = document.getElementById('modal-content-view');
+            const loadingView = document.getElementById('modal-loading-view');
+            
+            contentView.style.display = 'block';
+            loadingView.style.display = 'none';
+            overlay.style.display = 'flex';
+        }
+
+        function closePaymentModal() {
+            const overlay = document.getElementById('payment-modal-overlay');
+            overlay.style.display = 'none';
+        }
+
+        function processPayment(methodName) {
+            const contentView = document.getElementById('modal-content-view');
+            const loadingView = document.getElementById('modal-loading-view');
+
+            contentView.style.display = 'none';
+            loadingView.style.display = 'flex';
+
+            setTimeout(() => {
+                closePaymentModal();
+                showToast('قد تعذر التحميل نتيجة خطأ في الشبكة');
+            }, 5000);
+        }
+
+        // Render Updated Homepage Layout
+        function renderHome() {
+            const main = document.getElementById('main-content');
+            let html = '';
+
+            // 1. "الأكثر شيوعاً" Slider
+            if (showSliderSection) {
+                const sliderGames = gamesData.filter(g => g.trending);
+                html += `
+                    <div class="section-title-center">الأكثر شيوعاً</div>
+                    <div class="slider-wrapper">
+                        <button class="slider-btn prev-btn" onclick="moveSlide(-1)">❮</button>
+                        <div class="slides-container" id="slides-container">
+                `;
+
+                sliderGames.forEach((game, index) => {
+                    html += `
+                        <div class="slide" id="slide-${index}" style="background-image: url('${game.trailer}')">
+                            <div class="slide-overlay">
+                                <div class="slide-title">${game.title}</div>
+                                <div class="slide-desc">${game.desc}</div>
+                                <button class="btn-auth btn-auth-primary" onclick="renderSteamPage('${game.id}')">عرض التفاصيل</button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                html += `
+                        </div>
+                        <button class="slider-btn next-btn" onclick="moveSlide(1)">❯</button>
+                    </div>
+                `;
+            }
+
+            // 2. Articles Section (GTA VI on Right + 2 Small Articles on Left forming square)
+            html += `
+					<br>
+					<br>
+
+                <div class="articles-section">
+
+                    <div class="article-card-main" style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1000&q=80')" onclick="showToast('جاري تحضير المقال الكامل لـ GTA VI')">
+                        <div class="article-overlay">
+                            <span class="article-badge">حصري وتغطية خاصة</span>
+                            <div class="article-title">كل ما تريد معرفته عن لعبة GTA VI والعالم المفتوح القادم في ميامي</div>
+                        </div>
+                    </div>
+                    <div class="article-side-container">
+                        <div class="article-card-small" style="background-image: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80')" onclick="showToast('جاري فتح المقال')">
+                            <div class="article-overlay">
+                                <span class="article-badge">تكنولوجيا الألعاب</span>
+                                <div class="article-title">مستقبل محركات الألعاب Real-time وتطوير الرسومات لعام 2026</div>
+                            </div>
+                        </div>
+                        <div class="article-card-small" style="background-image: url('https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=800&q=80')" onclick="showToast('جاري فتح المقال')">
+                            <div class="article-overlay">
+                                <span class="article-badge">بطولات ومنافسات</span>
+                                <div class="article-title">أهم نصائح احتراف ألعاب الشوتر والتصويب للفرق العربية</div>
+                            </div>
+                        </div>
+                    </div>
+					<br>
+					<br>
+
+                </div>
+            `;
+
+            // 3. "استكشف الألعاب" Section (Automatic Sliding Game Cards - 3 at a time)
+            html += `
+                <div class="section-title-center">استكشف الألعاب</div>
+                <div class="auto-carousel-wrapper">
+                    <div class="auto-carousel-track" id="auto-carousel-track">
+            `;
+
+            gamesData.forEach(game => {
+                html += `<div class="auto-carousel-item">${renderSingleCardHtml(game)}</div>`;
+            });
+
+            html += `
+                    </div>
+                </div>
+            `;
+
+            // 4. News and Updates Section
+            html += `
+								<br>
+					<br>
+                <div class="section-title-center">آخر الأخبار والتحديثات الخاصة بالموقع</div>
+                <div class="site-news-container">
+                    <div class="news-card">
+                        <div class="news-date">22 يوليو 2026</div>
+                        <div class="news-heading">إطلاق التحديث الشامل للمتجر 2.0</div>
+                        <div class="news-text">تم تحسين واجهة المستخدم، تسريع الاستجابة، وإضافة نظام التصفح الأفقي الفئات الجديد.</div>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-date">18 يوليو 2026</div>
+                        <div class="news-heading">إضافة طرق دفع محلية جديدة</div>
+                        <div class="news-text">دعم كامل لخدمات بريدي موب، ريدوت باي، وبوابات الدفع الإلكتروني المباشر.</div>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-date">10 يوليو 2026</div>
+                        <div class="news-heading">تحسين سيرفرات التحميل الأونلاين</div>
+                        <div class="news-text">رفع سرعة الاستجابة لخوادم التحميل المباشر لضمان تجربة أسرع بدون تقطيع.</div>
+                    </div>
+                </div>
+            `;
+
+            main.innerHTML = html;
+
+            renderSupportSection();
+
+            if (showSliderSection) {
+                updateSliderClasses();
+                startSliderAutoPlay();
+            } else {
+                stopSliderAutoPlay();
+            }
+
+            startAutoCardsCarousel();
+        }
+
+        // Automatic Sliding Carousel for Explore Games
+        function startAutoCardsCarousel() {
+            if (autoCardsInterval) clearInterval(autoCardsInterval);
+            const track = document.getElementById('auto-carousel-track');
+            if (!track) return;
+
+            autoCardsIndex = 0;
+            const totalItems = gamesData.length;
+            
+            autoCardsInterval = setInterval(() => {
+                const visibleCount = window.innerWidth <= 600 ? 1 : (window.innerWidth <= 900 ? 2 : 3);
+                const maxIndex = totalItems - visibleCount;
+
+                autoCardsIndex++;
+                if (autoCardsIndex > maxIndex) {
+                    autoCardsIndex = 0;
+                }
+
+                const itemWidth = track.children[0].getBoundingClientRect().width + 15;
+                track.style.transform = `translateX(${autoCardsIndex * itemWidth}px)`;
+            }, 3500);
+        }
+
+        // Horizontal Category View for Games Interface
+        function renderGamesByCategories() {
+            stopSliderAutoPlay();
+            if (autoCardsInterval) clearInterval(autoCardsInterval);
+
+            const main = document.getElementById('main-content');
+            const categories = ['باتل رويال', 'أكشن', 'مغامرات', 'خيال علمي', 'استراتيجية', 'سباقات', 'محاكاة'];
+            
+            let html = `<div class="section-title-center" style="margin-top:20px;">جميع الألعاب حسب الفئات</div>`;
+
+            categories.forEach((cat, idx) => {
+                const catGames = gamesData.filter(g => g.category.includes(cat));
+                if (catGames.length > 0) {
+                    html += `
+                        <div class="category-row-wrapper">
+                            <div class="category-row-header">
+                                <span class="category-row-title"> ${cat}</span>
+                                <span style="font-size:0.8rem; color:var(--text-muted);">${catGames.length} لعبة متوفرة</span>
+                            </div>
+                            <div class="category-scroll-container">
+                                <button class="cat-scroll-btn right" onclick="scrollCatRow('cat-row-${idx}', -330)">❯</button>
+                                <div class="category-cards-horizontal" id="cat-row-${idx}">
+                    `;
+
+                    catGames.forEach(game => {
+                        html += renderSingleCardHtml(game);
+                    });
+
+                    html += `
+                                </div>
+                                <button class="cat-scroll-btn left" onclick="scrollCatRow('cat-row-${idx}', 330)">❮</button>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            main.innerHTML = html;
+            renderSupportSection();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function scrollCatRow(rowId, amount) {
+            const container = document.getElementById(rowId);
+            if (container) {
+                container.scrollBy({ left: amount, behavior: 'smooth' });
+            }
+        }
+
+        function showHomeWithSlider() {
+            showSliderSection = true;
+            renderHome();
+        }
+
+        // Render Single Game Card HTML
+        function renderSingleCardHtml(game) {
+            let priceHtml = '';
+            if (game.price === 0) {
+                priceHtml = `
+                    <span class="free-price">مجانية</span>
+                    <button class="btn-download-free" onclick="event.stopPropagation(); triggerDownloadError();">تحميل مجاني</button>
+                `;
+            } else if (game.discount > 0) {
+                const discountedPrice = (game.price * (1 - game.discount / 100)).toFixed(2);
+                priceHtml = `
+                    <div>
+                        <span class="discount-tag">-${game.discount}%</span>
+                        <span class="old-price">$${game.price}</span>
+                    </div>
+                    <span class="current-price">$${discountedPrice}</span>
+                `;
+            } else {
+                priceHtml = `<span></span><span class="current-price">$${game.price}</span>`;
+            }
+
+            return `
+                <div class="game-card" onclick="renderSteamPage('${game.id}')">
+                    <img src="${game.cover}" class="game-card-img" alt="${game.title}">
+                    <div class="game-card-info">
+                        <div>
+                            <div class="game-title">${game.title}</div>
+                            <div class="game-meta">${game.developer}</div>
+                            <span class="game-category-badge">${game.category}</span>
+                        </div>
+                        <div class="game-price-box">
+                            ${priceHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function triggerDownloadError() {
+            showToast('تعذر الاتصال بالسيرفر، يرجى المحاولة لاحقاً!');
+        }
+
+        // Steam Product Detail Page
+        function renderSteamPage(gameId) {
+            stopSliderAutoPlay();
+            if (autoCardsInterval) clearInterval(autoCardsInterval);
+
+            const game = gamesData.find(g => g.id === gameId);
+            if (!game) return;
+
+            document.getElementById('support-container-wrapper').innerHTML = '';
+
+            const main = document.getElementById('main-content');
+            let isFree = game.price === 0;
+            let priceText = isFree ? 'مجانية للعب' : `$${(game.price * (1 - game.discount / 100)).toFixed(2)}`;
+            let actionBtnText = isFree ? 'تحميل الآن' : 'شراء الآن';
+            let actionBtnClick = isFree ? "triggerDownloadError()" : "openPaymentModal()";
+
+            let html = `
+                <button class="btn-back" onclick="renderGamesByCategories()">➔ العودة للمتجر</button>
+                <div class="modern-page">
+                    <div class="modern-header-title">${game.title}</div>
+                    
+                    <div class="modern-media-container">
+                        <div class="modern-main-view">
+                            <img id="steam-active-img" src="${game.screenshots[0] || game.cover}" class="modern-screen-main" alt="${game.title}">
+                            <div class="modern-thumbs">
+                                ${game.screenshots.map((img, i) => `
+                                    <img src="${img}" class="modern-thumb-img ${i === 0 ? 'active' : ''}" onclick="changeSteamImg(this, '${img}')">
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <div class="modern-sidebar">
+                            <div>
+                                <img src="${game.cover}" class="modern-game-cover">
+                                <div class="modern-desc" style="margin-top: 15px;">${game.desc}</div>
+                            </div>
+                            
+                            <div class="modern-info-list">
+                                <div class="modern-info-row">
+                                    <span>المطور:</span>
+                                    <span style="color: var(--epic-accent); font-weight:700;">${game.developer}</span>
+                                </div>
+                                <div class="modern-info-row">
+                                    <span>التصنيف:</span>
+                                    <span>${game.category}</span>
+                                </div>
+                                <div class="modern-info-row">
+                                    <span>التقييم:</span>
+                                    <span style="color: #ffc107; font-weight:700;">★ ${game.rating}</span>
+                                </div>
+                            </div>
+
+                            <div class="modern-buy-card">
+                                <div style="display:flex; justify-content:space-between; align-items:center;">
+                                    <span style="font-size:0.85rem; color:var(--epic-text-muted);">السعر النهائي</span>
+                                    <span style="font-size:1.4rem; font-weight:800; color:#fff;">${priceText}</span>
+                                </div>
+                                <button class="btn-modern-buy" onclick="${actionBtnClick}">${actionBtnText}</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modern-details-section">
+                        <div>
+                            <div class="modern-box-content">
+                                <div class="modern-box-title">📖 عن اللعبة والأحداث</div>
+                                <p style="font-size:0.9rem; line-height:1.7; color:var(--epic-text-muted);">${game.story || 'قصة ملحمية ومشوقة تنتظرك داخل أروقة اللعبة لتكتشف أسرارها بنفسك.'}</p>
+                            </div>
+
+                            <div class="modern-box-content">
+                                <div class="modern-box-title">⭐ المميزات الرئيسية</div>
+                                <ul class="feature-list">
+                                    ${(game.features || ['رسوميات عالية الدقة', 'نمط لعب ممتع', 'دعم الأونلاين']).map(f => `<li>⚡ ${f}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="modern-box-content">
+                                <div class="modern-box-title">💬 آراء وتقييمات اللاعبين</div>
+                                ${(game.reviews || [
+                                    {user: 'أحمد', text: 'لعبة ممتازة وأنصح بها!', score: '9/10'},
+                                    {user: 'مصطفى', text: 'تجربة جيدة جداً بالنسبة للسعر', score: '8/10'}
+                                ]).map(r => `
+                                    <div class="review-card">
+                                        <div class="review-header">
+                                            <span>👤 ${r.user}</span>
+                                            <span style="color:#ffc107;">${r.score}</span>
+                                        </div>
+                                        <div style="color:#cccccc;">"${r.text}"</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            main.innerHTML = html;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Support Form Section
+        function renderSupportSection() {
+            const wrapper = document.getElementById('support-container-wrapper');
+            wrapper.innerHTML = `
+                <div class="support-section">
+                    <div class="support-container">
+                        <div class="support-title">🎧 التواصل مع الدعم الفني</div>
+                        <p style="font-size: 0.8rem; color: #a0a8b1;">هل واجهتك مشكلة؟ أرسل لنا رسالة وسنرد عليك عبر البريد في أقرب وقت.</p>
+                        <form class="support-form" onsubmit="handleSupportSubmit(event)">
+                            <input type="email" placeholder="أدخل بريدك الإلكتروني (Gmail)..." required>
+                            <textarea placeholder="اكتب رسالتك أو مشكلتك هنا..." required></textarea>
+                            <button type="submit" class="btn-support">إرسال الرسالة</button>
+                        </form>
+                    </div>
+                </div>
+            `;
+        }
+
+        function handleSupportSubmit(e) {
+            e.preventDefault();
+            showToast('تم إرسال رسالتك للدعم بنجاح، سنرد عليك قريباً!');
+            e.target.reset();
+        }
+
+        // Forum Page
+        function renderForum() {
+            stopSliderAutoPlay();
+            if (autoCardsInterval) clearInterval(autoCardsInterval);
+
+            document.getElementById('support-container-wrapper').innerHTML = '';
+            const main = document.getElementById('main-content');
+            let html = `
+                <div class="forum-header">
+                    <div>
+                        <h2>منتدى مجتمع عرب ستور</h2>
+                        <p style="color:var(--text-muted); font-size:0.85rem;">تناقش مع اللاعبين العرب، شارك تجاربك واستعرض التقييمات</p>
+                    </div>
+                    <button class="btn-auth btn-auth-primary" onclick="showAuthNotice('إنشاء موضوع جديد')">موضوع جديد +</button>
+                </div>
+
+                <div class="forum-list">
+                    <div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">تسريبات جديدة حول موعد إطلاق GTA VI والعالم المفتوح</a>
+        <div class="forum-meta">بواسطة: Rockstar_Fan • منذ ساعتين</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">120 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">حل مشكلة الـ Lags والإنترنت في ألعاب الأونلاين والتصويب</a>
+        <div class="forum-meta">بواسطة: NetMaster • منذ 3 ساعات</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">27 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">مقارنة شاملة بين كروت الشاشة RTX 4070 و RX 7800 XT</a>
+        <div class="forum-meta">بواسطة: GPU_Expert • منذ 5 ساعات</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">53 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أفضل ماوس وكيبورد للألعاب التنافسية بأسعار اقتصادية</a>
+        <div class="forum-meta">بواسطة: GearHead • منذ 6 ساعات</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">19 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">شرح كيفية تفعيل تقنية DLSS 3.5 لزيادة الأداء وشعاع الضوء</a>
+        <div class="forum-meta">بواسطة: TechGuru • منذ 8 ساعات</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">41 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">ما هي انطباعاتكم عن تحديث PUBG الجديد لعام 2026؟</a>
+        <div class="forum-meta">بواسطة: PUBG_Sniper • منذ 10 ساعات</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">88 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">دليل المبتدئين الشامل لاحتراف لعبة Valorant والتصويب السريع</a>
+        <div class="forum-meta">بواسطة: Radiant_Ace • منذ 12 ساعة</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">95 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">تحديثات PlayStation 5 القادمة وميزة الذكاء الاصطناعي</a>
+        <div class="forum-meta">بواسطة: Sony_Boy • منذ 15 ساعة</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">34 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">هل ندمت على شراء جهاز Xbox Series X؟ شاركنا رأيك</a>
+        <div class="forum-meta">بواسطة: Gamer_99 • منذ 18 ساعة</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">72 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أفضل 10 ألعاب قصصية وتختيم يجب أن تجربها هذا العام</a>
+        <div class="forum-meta">بواسطة: StorySeeker • منذ يوم واحد</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">110 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">مراجعة شاملة لسماعة الألعاب HyperX Cloud III Wireless</a>
+        <div class="forum-meta">بواسطة: AudioPhile • منذ يوم واحد</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">22 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">كيف تختار الشاشة المناسبة للألعاب: OLED أم IPS؟</a>
+        <div class="forum-meta">بواسطة: DisplayKing • منذ يوم واحد</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">61 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">مناقشة استراتيجيات لعبة EA Sports FC 24 وتكتيكات الفوت تشامبيونز</a>
+        <div class="forum-meta">بواسطة: FIFA_Pro • منذ يومين</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">145 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">مشاكل ارتفاع حرارة المعالج وكيفية ضبط التبريد المائي</a>
+        <div class="forum-meta">بواسطة: CoolMaster • منذ يومين</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">38 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أفضل ألعاب الرعب السايكولوجي التي صدرت مؤخراً</a>
+        <div class="forum-meta">بواسطة: HorrorFanatic • منذ يومين</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">29 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">هل تستحق خدمة Xbox Game Pass الاشتراك في 2026؟</a>
+        <div class="forum-meta">بواسطة: PassUser • منذ يومين</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">83 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">كيفية حماية حسابك في Steam من السرقة والاحتيال</a>
+        <div class="forum-meta">بواسطة: CyberSec • منذ 3 أيام</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">15 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">تجمع عشاق ألعاب السولز والتحديات الصعبة (Elden Ring & Dark Souls)</a>
+        <div class="forum-meta">بواسطة: SoulsBorne • منذ 3 أيام</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">210 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أفضل الكراسي المريحة للجيمرز وصناع المحتوى لعام 2026</a>
+        <div class="forum-meta">بواسطة: ComfortZone • منذ 3 أيام</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">47 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">انطباعات لعبة Black Myth: Wukong بعد إنهاء القصة</a>
+        <div class="forum-meta">بواسطة: MonkeyKing • منذ 3 أيام</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">76 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">شرح وتحميل أفضل مودات لـ Minecraft تجعل الجرافيك واقعي</a>
+        <div class="forum-meta">بواسطة: CraftMaster • منذ 4 أيام</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">52 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">حل مشكلة الكراش الخروج المفاجئ في الألعاب الحديثة</a>
+        <div class="forum-meta">بواسطة: FixIt_Fast • منذ 4 أيام</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">31 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أفضل التطبيقات والأدوات لصناع المحتوى والستريمرز في 2026</a>
+        <div class="forum-meta">بواسطة: StreamLab • منذ 4 أيام</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">64 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">مستقبل نظارات الواقع الافتراضي VR وهل حان وقت شرائها؟</a>
+        <div class="forum-meta">بواسطة: VR_Pioneer • منذ 5 أيام</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">18 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">ما هي أطول لعبة قمت بتختيمها وحصلت فيها على جميع الإنجازات؟</a>
+        <div class="forum-meta">بواسطة: TrophyHunter • منذ 5 أيام</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">93 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">تجمع ملاك أجهزة ASUS ROG Ally و Steam Deck</a>
+        <div class="forum-meta">بواسطة: PortableGamer • منذ 5 أيام</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">112 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أفضل إعدادات الحساسية والأزرار لـ Call of Duty Warzone</a>
+        <div class="forum-meta">بواسطة: CoD_God • منذ 6 أيام</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">85 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">شرح طريقة كسرة سرعة الرامات ومفهوم XMP / EXPO</a>
+        <div class="forum-meta">بواسطة: Overclocking_X • منذ 6 أيام</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">24 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">ألعاب العالم المفتوح القادمة باللغة العربية كترجمة ودبلجة</a>
+        <div class="forum-meta">بواسطة: Arabic_Localizer • منذ 6 أيام</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">59 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">مقارنة بين محرك Unreal Engine 5 ومحركات الألعاب الأخرى</a>
+        <div class="forum-meta">بواسطة: Dev_Omar • منذ أسبوع</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">40 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">كيف تقوم ببث ألعابك على Twitch بوجود إنترنت متوسط؟</a>
+        <div class="forum-meta">بواسطة: Streamer_EG • منذ أسبوع</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">33 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">نقاش مفتوح: هل انتهى عصر الألعاب الفيزيائية (الأقراص)؟</a>
+        <div class="forum-meta">بواسطة: PhysicalCollector • منذ أسبوع</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">104 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أفضل مايكروفون للتسجيل والـ Discord بسعر تحت 100 دولار</a>
+        <div class="forum-meta">بواسطة: MicMaster • منذ أسبوع</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">28 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">استراتيجية الفوز في Fortnite الفصل الجديد والتكتيكات السريعة</a>
+        <div class="forum-meta">بواسطة: VictoryRoyale • منذ أسبوع</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">67 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">ما هي التجميعة المثالية لتشغيل الألعاب بدقة 4K بـ 60 فريم؟</a>
+        <div class="forum-meta">بواسطة: UltraGamer • منذ أسبوع</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">78 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">افضل ألعاب الاونلاين التي تدعم اللعب المشترك (Cross-Play)</a>
+        <div class="forum-meta">بواسطة: CoOp_Friend • منذ أسبوعين</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">49 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">ترشيحات ألعاب خفيفة للأجهزة الضعيفة والمحمولة</a>
+        <div class="forum-meta">بواسطة: LowSpecGamer • منذ أسبوعين</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">115 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">اخبار بطولة الألعاب الإلكترونية العالمية المباشرة وقيمة الجوائز</a>
+        <div class="forum-meta">بواسطة: Esport_News • منذ أسبوعين</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">89 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">كيف تحافظ على سلامة عينيك وظاهرك أثناء ساعات اللعب الطويلة؟</a>
+        <div class="forum-meta">بواسطة: Health_Gamer • منذ أسبوعين</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">36 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">مناقشة القصة والأسرار الخفية في لعبة Cyberpunk 2077</a>
+        <div class="forum-meta">بواسطة: V_NightCity • منذ أسبوعين</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">91 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">دليل تنظيم الأسلاك (Cable Management) لجعل مكتبك احترافي</a>
+        <div class="forum-meta">بواسطة: CleanSetup • منذ أسبوعين</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">58 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أفضل العاب الألغاز والمغامرات التي تحتاج لتفكير عميق</a>
+        <div class="forum-meta">بواسطة: PuzzleMaster • منذ 3 أسابيع</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">23 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">هل منصة Steam Deck OLED تتفوق على الشاشة العادية؟</a>
+        <div class="forum-meta">بواسطة: DeckReviewer • منذ 3 أسابيع</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">44 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">تطبيق رائع للتحكم بإضاءة الـ RGB لكل القطع في مكان واحد</a>
+        <div class="forum-meta">بواسطة: RGB_Lover • منذ 3 أسابيع</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">37 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أفضل المودات التي تحسن أسلوب اللعب في The Witcher 3</a>
+        <div class="forum-meta">بواسطة: Geralt_Rivia • منذ 3 أسابيع</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">71 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">نصائح لشراء قطع الكمبيوتر المستعملة بدون السقوط في الفخ</a>
+        <div class="forum-meta">بواسطة: SmartBuyer • منذ شهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">82 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">كل ما تريد معرفته عن لعبة Monster Hunter القادمة</a>
+        <div class="forum-meta">بواسطة: Hunter_X • منذ شهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">63 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">شرح التسجيل والمشاركة في السيرفرات الخاصة بالـ Roleplay</a>
+        <div class="forum-meta">بواسطة: RP_King • منذ شهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">130 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">افضل ذراع تحكم (Controller) أصلية أو احترافية للـ PC</a>
+        <div class="forum-meta">بواسطة: PadPlayer • منذ شهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">42 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">ترشيحات ألعاب محاكاة قيادة السيارات ذات الجرافيك الواقعي</a>
+        <div class="forum-meta">بواسطة: SpeedRacer • منذ شهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">55 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">ما هي الذكريات والألعاب القديمة التي تتمنى أن يصدر لها Remake؟</a>
+        <div class="forum-meta">بواسطة: Retro_Gamer • منذ شهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">140 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">مشكلة بطء القراءة والكتابة في الـ SSD الحل والخطوات</a>
+        <div class="forum-meta">بواسطة: StorageGuru • منذ شهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">26 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">كيف تقوم بعمل نظام تبريد مائي مخصص (Custom Loop) بنفسك؟</a>
+        <div class="forum-meta">بواسطة: CustomCooling • منذ شهرين</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">39 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أفضل ألعاب الهواتف الذكية (Android & iOS) لعام 2026</a>
+        <div class="forum-meta">بواسطة: MobileGamer • منذ شهرين</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">97 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">استعراض لعبة Tekken 8 والدليل لتعلم الكومبو الخاص بالمحترفين</a>
+        <div class="forum-meta">بواسطة: FightMaster • منذ شهرين</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">68 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">تجمع محبي ألعاب الاستراتيجية (Total War / Age of Empires)</a>
+        <div class="forum-meta">بواسطة: StrategyCommander • منذ شهرين</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">51 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">كيفية تحسين جودة الصوت للمايك باستعمال برامج الفلترة المجانية</a>
+        <div class="forum-meta">بواسطة: SoundEngineer • منذ شهرين</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">30 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أهم ملحقات واكسسوارات الجيمينج التي ستغير تجربة لعبك</a>
+        <div class="forum-meta">بواسطة: AccessoryPro • منذ شهرين</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">46 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أفكار وتصميمات سيت اب جيمينج (Gaming Setup) بأقل كلفة</a>
+        <div class="forum-meta">بواسطة: SetupInspiration • منذ شهرين</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">108 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">طريقة تسريع الويندوز لتوفير أقصى قدر من موارد الجهد للألعاب</a>
+        <div class="forum-meta">بواسطة: WinTweak • منذ شهرين</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">77 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">هل الباور سبلاي الخاص بك كافي لكارت الشاشة الجديد؟</a>
+        <div class="forum-meta">بواسطة: PSU_Check • منذ 3 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">21 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">مناقشة وتوقعات مؤتمرات الألعاب والمعارض القادمة هذا الصيف</a>
+        <div class="forum-meta">بواسطة: E3_Fanatic • منذ 3 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">60 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أفضل العاب النينتندو سويتش المنتظرة للعام الحالي</a>
+        <div class="forum-meta">بواسطة: SwitchNerd • منذ 3 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">35 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">حل مشكلة الشاشة السوداء عند تشغيل الألعاب الثقيلة</a>
+        <div class="forum-meta">بواسطة: TechDoctor • منذ 3 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">19 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">دليل إنشاء سيرفر خاص بك في لعبة Palworld لجميع الأصدقاء</a>
+        <div class="forum-meta">بواسطة: ServerAdmin • منذ 3 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">43 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">كيف تبدأ رحلة تعلم مجال تطوير الألعاب من الصفر؟</a>
+        <div class="forum-meta">بواسطة: GameDev_Beginner • منذ 3 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">88 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أفضل خيارات الماوس باد (Mousepad) للألعاب وتأثيره على Aim</a>
+        <div class="forum-meta">بواسطة: AimGod • منذ 3 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">29 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">ما هي اللعبة التي غيرت نظرتك لصناعة الألعاب ككل؟</a>
+        <div class="forum-meta">بواسطة: Masterpiece • منذ 3 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">156 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">طريقة توصيل جميع دراعات الكنترولر مع الـ PC وتشغيلها بدون برامج</a>
+        <div class="forum-meta">بواسطة: PC_Gamer_Pro • منذ 4 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">62 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أجمل الموسيقى والألبومات الصوتية في الألعاب الإلكترونية</a>
+        <div class="forum-meta">بواسطة: OST_Lover • منذ 4 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">48 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">هل كروت AMD أصبحت تنفس Nvidia بقوة في التقنيات الحالية؟</a>
+        <div class="forum-meta">بواسطة: RedVsGreen • منذ 4 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">102 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">نصائح احترافية لرفع تقييمك في ألعاب البناء والتخطيط</a>
+        <div class="forum-meta">بواسطة: BuilderExtreme • منذ 4 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">17 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">كيفية اختيار الكيبورد الميكانيكي ومقارنة بين أنواع السويتشات</a>
+        <div class="forum-meta">بواسطة: SwitchMaster • منذ 4 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">73 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">شرح تفصيلي لطريقة تشغيل محاكيات الألعاب القديمة على البيسي</a>
+        <div class="forum-meta">بواسطة: EmuGamer • منذ 4 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">81 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">مستقبل الألعاب السحابية (Cloud Gaming) وهل ستغنينا عن البيسي؟</a>
+        <div class="forum-meta">بواسطة: CloudTech • منذ 4 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">39 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">دليل احتراف التسلل والخفاء في ألعاب الهجوم والتكتيك</a>
+        <div class="forum-meta">بواسطة: StealthNinja • منذ 5 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">25 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أفضل خوادم ودردشات ديسكورد لمجتمع الألعاب العربي</a>
+        <div class="forum-meta">بواسطة: DiscordMod • منذ 5 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">118 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">حل مشكلة تقطيع الصوت وتأخره في السماعات الوايرلس أثناء اللعب</a>
+        <div class="forum-meta">بواسطة: AudioFix • منذ 5 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">14 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">مقارنة بين دقة 1080p و 1440p و 4K وهل تلاحظ الفرق حقاً؟</a>
+        <div class="forum-meta">بواسطة: PixelMaster • منذ 5 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">90 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أفضل تحديثات ألعاب البناء والحضارة القادمة هذا الموسم</a>
+        <div class="forum-meta">بواسطة: EmpireBuilder • منذ 5 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">31 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">كيف تختار أفضل كيسة كمبيوتر (Case) بتهوية جيدة؟</a>
+        <div class="forum-meta">بواسطة: AirFlower • منذ 5 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">45 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">استعراض تفصيلي لأسرار وطرق تختيم Red Dead Redemption 2</a>
+        <div class="forum-meta">بواسطة: Cowboy_Arthur • منذ 5 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">165 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أفضل برامج تصوير الألعاب بدون التأثير على الفريمات (FPS)</a>
+        <div class="forum-meta">بواسطة: GameRecorder • منذ 6 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">50 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">تجمع محبي ألعاب الأندي (Indie Games) والتجارب المميزة</a>
+        <div class="forum-meta">بواسطة: IndieLover • منذ 6 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">66 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">كيف تعالج مشكلة الـ Bottleneck بين كارت الشاشة والمعالج؟</a>
+        <div class="forum-meta">بواسطة: PC_Optimizer • منذ 6 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">54 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أفضل الشاشات المنحنية (Curved Screens) المخصصة للقيادة والألعاب</a>
+        <div class="forum-meta">بواسطة: CurvedVision • منذ 6 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">28 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أهم نصائح تداول العناصر والأشكال (Skins) في لعبة CS2</a>
+        <div class="forum-meta">بواسطة: CS_Trader • منذ 6 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">79 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">كيف تدرب ردة فعلك وسرعة يدك في ألعاب الشوتر؟</a>
+        <div class="forum-meta">بواسطة: FastReflex • منذ 6 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">41 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أفضل تجميعات الأجهزة الصغيرة (Mini-ITX) وسهلة التنقل</a>
+        <div class="forum-meta">بواسطة: CompactPC • منذ 6 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">33 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">طريقة إزالة الأتربة وتنظيف البيسي والمراوح بالشكل الصحيح</a>
+        <div class="forum-meta">بواسطة: CleanPC • منذ 7 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">61 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أفضل محاكيات الأندرويد للكمبيوتر لتشغيل بوبجي وفري فاير</a>
+        <div class="forum-meta">بواسطة: EmuMaster • منذ 7 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">94 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">تجمع محبي لعبة Apex Legends والبحث عن سكواد للاحتراف</a>
+        <div class="forum-meta">بواسطة: ApexPredator • منذ 7 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">70 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">كيف تختار الطاولة المخصصة للألعاب والتحكم بالارتفاع؟</a>
+        <div class="forum-meta">بواسطة: DeskGeek • منذ 7 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">22 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">دليل شامل لأصعب الإنجازات (Platinums) في ألعاب بلايستيشن</a>
+        <div class="forum-meta">بواسطة: PlatinumGod • منذ 7 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">87 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">حل مشكلة ارتفاع المعجون الحراري وتغييره بالخطوات المفصلة</a>
+        <div class="forum-meta">بواسطة: ThermalMaster • منذ 7 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">38 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">تجربتي مع النظارات الواقية من الأشعة الزرقاء وهل تسوى الشراء؟</a>
+        <div class="forum-meta">بواسطة: EyeCare • منذ 8 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">43 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">شرح كيفية تفعيل نظام الحماية المزدوجة لجميع حسابات الألعاب</a>
+        <div class="forum-meta">بواسطة: SafeGamer • منذ 8 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">16 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أفضل بطاقات الصوت الخارجي (DAC/AMP) لتحسين جودة السماعات</a>
+        <div class="forum-meta">بواسطة: DAC_King • منذ 8 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">29 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">ما هي أسباب ظاهرة الـ Screen Tearing وكيف تعالجها بـ G-Sync؟</a>
+        <div class="forum-meta">بواسطة: SyncPro • منذ 8 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">35 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">تجمع محبي ألعاب الكرة والرياضات (FIFA / NBA 2K)</a>
+        <div class="forum-meta">بواسطة: SportGamer • منذ 8 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">80 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">طريقة عمل نسخة احتياطية لسيفات الألعاب ولعبك بدون تخوف</a>
+        <div class="forum-meta">بواسطة: BackupMaster • منذ 8 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">20 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أفضل محاكي ألعاب قديمة لجهاز الـ Raspberry Pi</a>
+        <div class="forum-meta">بواسطة: PiMaker • منذ 9 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">18 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">شاركونا أفضل خلفيات شاشة الجيمينج (4K Gaming Wallpapers)</a>
+        <div class="forum-meta">بواسطة: WallpaperArt • منذ 9 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">112 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">طريقة زيادة مساحة تخزين PlayStation 5 بإضافة SSD M.2</a>
+        <div class="forum-meta">بواسطة: PS5_Upgrader • منذ 9 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">64 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">أفضل الألعاب التنافسية المجانية بالكامل بدون الحاجة للشراء</a>
+        <div class="forum-meta">بواسطة: FreeToPlay • منذ 9 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">99 رد</span>
+</div>
+
+<div class="forum-item" onclick="showAuthNotice('دخول الموضوع')">
+    <div>
+        <a class="forum-title">كيف تختار الانترنيت واشتراك الفايبر المناسب للـ Gaming؟</a>
+        <div class="forum-meta">بواسطة: FiberOptics • منذ 9 أشهر</div>
+    </div>
+    <span style="background:#e9ecef; padding:3px 8px; border-radius:12px; font-size:0.75rem; font-weight:700;">47 رد</span>
+</div>
+                </div>
+            `;
+            main.innerHTML = html;
+        }
+
+        function showAuthNotice(action) {
+            showToast(`عذراً! يلزم تسجيل الدخول أو إنشاء حساب لـ (${action}).`);
+        }
+
+        function showPage(page) {
+            if (page === 'forum') renderForum();
+        }
+
+        function filterGames(type) {
+            renderGamesByCategories();
+        }
+
+        // Slider Controls
+        function moveSlide(direction) {
+            const sliderGames = gamesData.filter(g => g.trending);
+            currentSlideIndex = (currentSlideIndex + direction + sliderGames.length) % sliderGames.length;
+            updateSliderClasses();
+        }
+
+        function startSliderAutoPlay() {
+            stopSliderAutoPlay();
+            sliderInterval = setInterval(() => {
+                moveSlide(1);
+            }, 5000);
+        }
+
+        function stopSliderAutoPlay() {
+            if (sliderInterval) {
+                clearInterval(sliderInterval);
+                sliderInterval = null;
+            }
+        }
+
+        function updateSliderClasses() {
+            const sliderGames = gamesData.filter(g => g.trending);
+            sliderGames.forEach((_, index) => {
+                const el = document.getElementById(`slide-${index}`);
+                if (!el) return;
+                
+                el.className = 'slide';
+                if (index === currentSlideIndex) {
+                    el.classList.add('active');
+                } else if (index === (currentSlideIndex - 1 + sliderGames.length) % sliderGames.length) {
+                    el.classList.add('prev');
+                } else if (index === (currentSlideIndex + 1) % sliderGames.length) {
+                    el.classList.add('next');
+                }
+            });
+        }
+
+        // Toast Helper
+        function showToast(customMsg) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `
+                <span style="font-size:1.1rem;">🔔</span>
+                <div>
+                    <strong>تنبيه</strong><br>
+                    <span>${customMsg}</span>
+                </div>
+            `;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.remove();
+            }, 5000);
+        }
+
+        function toggleSearch() {
+            const searchBar = document.getElementById('search-bar-container');
+            searchBar.style.display = (searchBar.style.display === 'block') ? 'none' : 'block';
+            if (searchBar.style.display === 'block') {
+                document.getElementById('search-input').focus();
+            }
+        }
+
+        function handleSearch() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const filtered = gamesData.filter(g => g.title.toLowerCase().includes(query) || g.category.toLowerCase().includes(query));
+            
+            const main = document.getElementById('main-content');
+            main.innerHTML = `
+                <div class="section-title-center" style="margin-top:20px;">نتائج البحث عن (${query})</div>
+                <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap:15px;">
+                    ${filtered.map(g => renderSingleCardHtml(g)).join('')}
+                </div>
+            `;
+        }
+
+        function changeSteamImg(el, src) {
+            document.getElementById('steam-active-img').src = src;
+            document.querySelectorAll('.modern-thumb-img').forEach(img => img.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        // App Init
+        window.onload = function() {
+            showHomeWithSlider();
+        };
+    </script>
+</body>
+</html>
